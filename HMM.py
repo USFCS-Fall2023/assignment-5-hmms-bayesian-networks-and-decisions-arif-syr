@@ -35,6 +35,18 @@ class HMM:
         """reads HMM structure from transition (basename.trans),
         and emission (basename.emit) files,
         as well as the probabilities."""
+        self.emissions = {}
+        self.transitions = {}
+        with open(f"{basename}.emit", 'r') as emission_file:
+            for line in emission_file:
+                parts = line.split()
+                self.emissions.setdefault(parts[0], {})[parts[1]] = float(parts[2])
+
+        with open(f"{basename}.trans", 'r') as transmission_file:
+            for line in transmission_file:
+                parts = line.split()
+                self.transitions.setdefault(parts[0], {})[parts[1]] = float(parts[2])
+
 
 
 
