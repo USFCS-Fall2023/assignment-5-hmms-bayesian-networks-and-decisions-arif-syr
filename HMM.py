@@ -52,7 +52,27 @@ class HMM:
 
    ## you do this.
     def generate(self, n):
-        """return an n-length observation by randomly sampling from this HMM."""
+        current_state = '#'
+        states_sequence = []
+        emissions_sequence = []
+
+        for i in range(n):
+            # Pick a random successor using probability as weights.
+            # Then, pick an emission using that state
+            next_state = random.choices(list(self.transitions[current_state].keys()), weights=self.transitions[current_state].values())[0]
+            next_emission = random.choices(list(self.emissions[next_state].keys()), weights=self.emissions[next_state].values())[0]
+
+            # To see the highest probability option, and if it was actually chosen (not for testing functionality)
+            # max_prob = max(emissions_tmp.values())  # maximum value
+            # max_key = [k for k, v in emissions_tmp.items() if v == max_prob]
+            # print(max_key, max_prob)
+            # print(next_emission)
+            # print()
+
+            current_state = next_state
+            states_sequence.append(next_state)
+            emissions_sequence.append(next_emission)
+        return Observation(states_sequence, emissions_sequence)
 
 
 
