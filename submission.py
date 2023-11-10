@@ -4,6 +4,8 @@ import sys
 
 
 def run_viterbi():
+    lines = []  # To store observations
+    expected = []  # To store answers
     with open(args.viterbi, 'r') as f:
         observations = f.readlines()
         for i, line in enumerate(observations):
@@ -22,6 +24,8 @@ def run_viterbi():
         print(observation)
 
 def run_forward():
+    lines = []  # To store observations
+    expected = []  # To store answers
     with open(args.forward, 'r') as f:
         observations = f.readlines()
         for i, line in enumerate(observations):
@@ -50,8 +54,6 @@ if __name__ == '__main__':
     print("Generated text: ")
     print(hmm.generate(20))
 
-    lines = []  # To store observations
-    expected = []  # To store answers
     if args.forward:
         run_forward()
 
