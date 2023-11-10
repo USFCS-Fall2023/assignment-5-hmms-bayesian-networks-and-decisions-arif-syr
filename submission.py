@@ -1,5 +1,5 @@
 import argparse
-import HMM
+import alarm, carnet, HMM
 import sys
 
 
@@ -57,3 +57,22 @@ if __name__ == '__main__':
 
     if args.viterbi:
         run_viterbi()
+
+    print("####################################")
+
+    # Storing queries and evidence for alarm.py in here for readability
+    alarm_variables = [["MaryCalls"],
+                       ["JohnCalls", "MaryCalls"],
+                       ["Alarm"]]
+    alarm_evidence = [{"JohnCalls": "yes"},
+                      {"Alarm": "yes"},
+                      {"MaryCalls": "yes"}]
+    print("Running alarm.py queries")
+
+    for variable, evidence in zip(alarm_variables, alarm_evidence):
+        print(f"Probability of {', '.join(var for var in variable)} given {', '.join(e for e in evidence)}:")
+        alarm.run(variable, evidence)
+
+    print("####################################")
+    print("Running carnet.py queries")
+    carnet.run()
